@@ -1,10 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const authRoute =  require('./routes/authRoute');
 
 const app = express();
 
+
 // middleware for the styling
 app.use(express.static('public'));
+app.use(express.json());
 
 // view engine
 app.set('view engine', 'ejs');
@@ -18,3 +21,4 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 // routes
 app.get('/', (req, res) => res.render('home'));
 app.get('/smoothies', (req, res) => res.render('smoothies'));
+app.use(authRoute);
