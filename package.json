@@ -4,9 +4,11 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "a": "^3.0.1",
     "ejs": "^3.1.3",
     "express": "^4.18.2",
-    "mongoose": "^5.9.23"
+    "mongoose": "^5.9.23",
+    "validator": "^13.9.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

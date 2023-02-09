@@ -1,4 +1,5 @@
 const User = require('../models/User');
+//handle errors
 
 
 module.exports.signup_get = (req, res, next) =>{
@@ -14,7 +15,7 @@ module.exports.signup_post = async(req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).send({message: usernotcreate});
+        res.status(500).send("");
     };
 };
 
