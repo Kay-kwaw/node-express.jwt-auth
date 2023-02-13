@@ -3,11 +3,14 @@ const User = require('../models/User');
 const handleErrors = (err)=>{
     console.log(err.message, err.code);
     //This is the object that will be sent to the user as json 
-    let error = {email: "", password: "", };
+    let errors = {email: '', password: '' };
 
     //Validation errors
-    if(err.message.includes('user validation failed')){
-        console.log(Object.values(err.errors));
+    if (err.message.includes('user validation failed')) {
+        Object.values(err.errors).forEach(
+            ({properties}) => {
+                errors[properties.path] = properties.message;
+             });
     }
 }
 
@@ -24,9 +27,8 @@ module.exports.signup_post = async(req, res) => {
     res.status(200).json(user);
     }
     catch(err){
-
        const errors = handleErrors(err);
-        res.status(500).send("");
+        res.status(400).json({ errors });
     };
 };
 
