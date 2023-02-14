@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -17,13 +18,20 @@ const userSchema = new mongoose.Schema({
 
 });
 
-//fire a function after doc saved to db;
+//fire a function after doc saved to db using mongoose hooks;
 
-userSchema.post('save', function(doc, next){
-    console.log('new user was created and saved to db');
+// userSchema.post('save', function(doc, next){
+//     console.log('new user was created and saved to db');
+//     next();
+// });
+
+//A set of strings of characteres seperated from the password itself to is known as salt in hashing of a password
+// We take the password attach a salt string to it and hash through hashing algorithm to
+userSchema.pre('save', async function(next){
+const salt = await bcrypt.genSalt();
+this.password = await bcrypt.hash(this.password, salt)
     next();
 });
-
 //Create a module based on the schema
 
 const User = mongoose.model('user', userSchema);
