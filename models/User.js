@@ -17,6 +17,13 @@ const userSchema = new mongoose.Schema({
 
 });
 
+//fire a function after doc saved to db;
+
+userSchema.post('save', function(doc, next){
+    console.log('new user was created and saved to db');
+    next();
+});
+
 //Create a module based on the schema
 
 const User = mongoose.model('user', userSchema);
