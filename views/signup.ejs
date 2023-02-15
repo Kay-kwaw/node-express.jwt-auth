@@ -12,9 +12,9 @@
 </form>
 
 <script>
-    const form = document.querySelector('form');
+    const form = document.querySelector ('form');
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         //this prevents the page fro, reloading once a user tries signing in
         e.preventDefault();
 
@@ -22,8 +22,17 @@
         const email = form.email.value;
         const password = form.password.value;
 
-        console.log(email, password);
+        try {
+            const result = await fetch('/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({email: email, password: password})
+            })
+        }
+        catch (error) {
+            console.error(error);
+        }
     })
 </script>
-
 <%- include('partials/footer'); -%>
+
