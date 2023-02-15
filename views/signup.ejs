@@ -35,17 +35,17 @@
             });
             const data = await result.json();
             console.log(data);
+            
+           if (data.error)  {
+            emailError.textContent = data.error.email;
+            passwordError.textContent = data.error.password;
+           }
+           if (data.success) {
+            location.assign('/')
+           }
         }
         catch (err) {
             console.log(err);
-
-            if (data.error)  {
-                emailError.textContent = data.error.email;
-                passwordError.textContent = data.error.password;
-            }
-            if (!data.user){
-                location.assign('/');
-            }
         }
     })
 </script>
