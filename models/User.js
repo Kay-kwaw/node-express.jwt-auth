@@ -32,6 +32,19 @@ const salt = await bcrypt.genSalt();
 this.password = await bcrypt.hash(this.password, salt)
     next();
 });
+// Static method to login a user;
+userSchema.statics.login = async function(email, password){
+    const user = await this.findOne({email: email,});
+    if (user) {
+        const auth = await bcrypt.compare(password, user.password);
+      if (auth){
+        return user;
+      }
+      throw Error('Invalid password');
+
+    }
+    throw new Error('User not found');
+}
 //Create a module based on the schema
 
 const User = mongoose.model('user', userSchema);
