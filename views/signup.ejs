@@ -20,28 +20,27 @@
         //this prevents the page fro, reloading once a user tries signing in
         e.preventDefault();
         //reset error messages
-        emailError.textContent = "";
-        passwordError.textContent = "";
-
+        emailError.textContent = passwordError.textContent = "";
+        
         //get values
         const email = form.email.value;
         const password = form.password.value;
 
         try {
-            const result = await fetch('/signup', {
+            const res = await fetch('/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({email: email, password: password})
             });
-            const data = await result.json();
-            console.log(data);
-            
-           if (data.error)  {
-            emailError.textContent = data.error.email;
-            passwordError.textContent = data.error.password;
+            const data = await res.json();
+            console.log(data)
+           if (data.errors)  {
+            emailError.textContent = data.errors.email;
+            passwordError.textContent = data.errors.password;
            }
-           if (data.success) {
-            location.assign('/')
+           if (data.users) {
+           location.assign('/home');
+            
            }
         }
         catch (err) {
