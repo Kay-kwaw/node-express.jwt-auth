@@ -8,17 +8,17 @@ const jwt = require('jsonwebtoken');
     let errors = {email: '', password: '' };
 
     //incorrect email
-    if (err.message === 'incorrect email') {
+    if (err.message ='incorrect email') {
         errors.email = 'that email is not registered';
     }
 
     //incorrect password
-    if (err.message === 'incorrect email'){
+    if (err.message = 'incorrect email'){
         errors.password = 'the password is incorrect';
     }
 
     //duplicate error code
-    if(err.code === 11000) {
+    if(err.code = 11000) {
         errors.email = 'that email already exists';
         return errors;
     }
